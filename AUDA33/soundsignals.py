@@ -15,9 +15,9 @@ import scipy.fft as scifft
 #Signal settings
 signal_length = 2 #Length in s
 shape = 'square' #Choose between sinusoid, square, triangle, sawtooth_init_slope, and sawtooth_final_slope.
-sq_duty_cycle=0.8 #Duty cycle for square waves
+sq_duty_cycle=0.1 #Duty cycle for square waves
 amplitude = 1 
-frequency = 110 #In Hz
+frequency = 220 #In Hz
 sampling_frequency = 44100 #Sampling frequncy in Hz
 
 #Define the signal and one wavelength
@@ -54,7 +54,7 @@ axs[1].set_ylabel('Amplitude')
 plt.show()
 
 #Listen to the signal
-sd.play(signal, sampling_frequency)
+sd.play(signal, sampling_frequency) #device=0 should be mini-tele jack.
 sd.wait()
 sd.stop()
 

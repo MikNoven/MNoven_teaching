@@ -68,3 +68,18 @@ axs[1].set_xlabel('Vinkel i radianer')
 axs[1].set_ylabel('Amplitud')
 plt.show()
 
+#Comparison plots standard and square
+amplitude=2
+angle = np.arange(0,8*np.pi,2*np.pi/2000) 
+
+fig, axs = plt.subplots(2, 1, layout='constrained')
+axs[0].plot(angle,amplitude*np.sin(angle))
+axs[0].set_ylim(-amplitude,amplitude**2)
+axs[0].set_xlabel('Vinkel i radianer')
+axs[0].set_ylabel('Amplitud')
+
+axs[1].plot(angle,(amplitude*np.sin(angle))**2)
+axs[1].set_ylim(-amplitude,amplitude**2)
+axs[1].set_xlabel('Vinkel i radianer')
+axs[1].set_ylabel('Amplitud i kvadrat')
+plt.show()

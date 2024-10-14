@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Oct  8 08:56:16 2024
+Script for visualizing spectra.
+@author: gdf724
+"""
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.signal as scisig
+
+#plot waveform and spectrum for simple signal
+signal_length = 0.05 #Length in s
+shape = 'sinusoid' #Choose between sinusoid, square, triangle, sawtooth_init_slope, and sawtooth_final_slope.
+sampling_frequency = 44100 #Sampling frequncy in Hz
+
+#Define the signal and one wavelength
+time=np.arange(0,signal_length,1/sampling_frequency)
+#signal=3*np.sin(2*np.pi*110*time)+2*np.sin(2*np.pi*325*time)+1.5*np.sin(2*np.pi*650*time)
+signal=np.sin(2*np.pi*440*time)
+
+fig = plt.figure(figsize=(7, 7), layout='constrained')
+axs = fig.subplot_mosaic([["signal"],
+                          ["magnitude"], 
+                          ["log_magnitude"],
+                          ["phase"]])
+
+# plot time signal:
+axs["signal"].set_title("Signal")
+axs["signal"].plot(time, signal, color='C0')
+axs["signal"].set_xlabel("Time (s)")
+axs["signal"].set_ylabel("Amplitude")
+
+# plot different spectrum types:
+axs["magnitude"].set_title("Magnitude Spectrum")
+axs["magnitude"].magnitude_spectrum(signal, Fs=sampling_frequency, color='C1')
+
+axs["log_magnitude"].set_title("Log. Magnitude Spectrum")
+axs["log_magnitude"].magnitude_spectrum(signal, Fs=sampling_frequency, scale='dB', color='C1')
+
+axs["phase"].set_title("Phase Spectrum ")
+axs["phase"].phase_spectrum(signal, Fs=sampling_frequency, color='C2')
+
+plt.show()
+
+#Noisy
+nse = np.random.randn(len(time))
+signal=np.sin(2*np.pi*440*time)+nse
+
+fig = plt.figure(figsize=(7, 7), layout='constrained')
+axs = fig.subplot_mosaic([["signal"],
+                          ["magnitude"]])
+
+# plot time signal:
+axs["signal"].set_title("Signal")
+axs["signal"].plot(time, signal, color='C0')
+axs["signal"].set_xlabel("Time (s)")
+axs["signal"].set_ylabel("Amplitude")
+
+# plot different spectrum types:
+axs["magnitude"].set_title("Magnitude Spectrum")
+axs["magnitude"].magnitude_spectrum(signal, Fs=sampling_frequency, color='C1')
+
+plt.show()
+
+#Just noise
+nse = np.random.randn(len(time))
+
+fig = plt.figure(figsize=(7, 7), layout='constrained')
+axs = fig.subplot_mosaic([["signal"],
+                          ["magnitude"]])
+
+# plot time signal:
+axs["signal"].set_title("Signal")
+axs["signal"].plot(time, nse, color='C0')
+axs["signal"].set_xlabel("Time (s)")
+axs["signal"].set_ylabel("Amplitude")
+
+# plot different spectrum types:
+axs["magnitude"].set_title("Magnitude Spectrum")
+axs["magnitude"].magnitude_spectrum(nse, Fs=sampling_frequency, color='C1')
+
+plt.show()
+
+
+#Sawtooth
+signal=3*scisig.sawtooth(2*np.pi*440*time)
+fig = plt.figure(figsize=(7, 7), layout='constrained')
+axs = fig.subplot_mosaic([["signal"],
+                          ["magnitude"]])
+axs["signal"].set_title("Signal")
+axs["signal"].plot(time[0:1000], signal[0:1000], color='C0')
+axs["signal"].set_xlabel("Time (s)")
+axs["signal"].set_ylabel("Amplitude")
+
+# plot different spectrum types:
+axs["magnitude"].set_title("Magnitude Spectrum")
+axs["magnitude"].magnitude_spectrum(signal, Fs=sampling_frequency, color='C1')
+
+plt.show()
+
+
