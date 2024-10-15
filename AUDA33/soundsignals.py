@@ -14,7 +14,7 @@ import scipy.fft as scifft
 
 #Signal settings
 signal_length = 2 #Length in s
-shape = 'square' #Choose between sinusoid, square, triangle, sawtooth_init_slope, and sawtooth_final_slope.
+shape = 'sinusoid' #Choose between sinusoid, square, triangle, sawtooth_init_slope, and sawtooth_final_slope.
 sq_duty_cycle=0.1 #Duty cycle for square waves
 amplitude = 1 
 frequency = 220 #In Hz

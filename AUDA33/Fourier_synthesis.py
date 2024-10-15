@@ -25,13 +25,25 @@ signal=signal[::-1]
 waveform=amplitude*scisig.sawtooth(2*np.pi*frequency*waveform_time)
 waveform=waveform[::-1]
 
+#Plot the whole signal and one wavelength
+fig, axs = plt.subplots(2, 1, layout='constrained')
+axs[0].plot(time,signal)
+axs[0].set_xlabel('Time (s)')
+axs[0].set_ylabel('Amplitude')
+
+axs[1].plot(waveform_time,waveform)
+axs[1].set_xlabel('Time (s)')
+axs[1].set_ylabel('Amplitude')
+plt.show()
+
+
 #Play standard signal
 sd.play(signal, sampling_frequency) #device=0 should be mini-tele jack.
 sd.wait()
 sd.stop()
 
 #Sawtooth example
-Fourier_components=1
+Fourier_components=6
 synth_signal=np.zeros(len(time))
 for itr in range(1,Fourier_components+1,1):
     synth_signal=synth_signal+(1/itr)*np.sin(2*np.pi*itr*frequency*time) #N.B! Amplitude only correct for this series.
